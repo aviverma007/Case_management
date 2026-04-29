@@ -414,3 +414,74 @@ html, body {
 .recharts-legend-item-text { color: var(--off-white) !important; font-size: 11px !important; }
 .recharts-cartesian-axis-tick-value { fill: var(--muted) !important; }
 .recharts-default-legend { padding: 4px 0 0 !important; }
+
+/* ─────────────── BEYOND TAT SECTION ─────────────── */
+.tat-card {
+  border-color: rgba(220,38,38,0.2) !important;
+  box-shadow: var(--shadow), 0 0 30px rgba(220,38,38,0.05) !important;
+}
+.tat-card:hover {
+  border-color: rgba(239,68,68,0.4) !important;
+  box-shadow: var(--shadow), 0 0 50px rgba(220,38,38,0.1) !important;
+}
+.tat-card::after {
+  background: linear-gradient(90deg, transparent, rgba(220,38,38,0.15), transparent) !important;
+}
+
+/* ── Section Divider ── */
+.section-divider {
+  display: flex; align-items: center; gap: 14px;
+  margin: 8px 0 4px;
+}
+.div-line { flex: 1; height: 1px; }
+.div-label {
+  font-size: 11px; font-weight: 800; letter-spacing: .1em;
+  padding: 5px 16px; border-radius: 999px; border: 1px solid;
+  white-space: nowrap;
+}
+
+/* ── Beyond TAT filter bar ── */
+.tat-filter-bar {
+  background: rgba(30,8,8,0.88) !important;
+  border-bottom: 1px solid rgba(220,38,38,0.2) !important;
+}
+.filter-section-label {
+  font-size: 10px; font-weight: 800; color: var(--muted);
+  text-transform: uppercase; letter-spacing: .08em; white-space: nowrap;
+  flex-shrink: 0;
+}
+.tat-clear {
+  border-color: rgba(220,38,38,0.5) !important;
+  background: rgba(220,38,38,0.1) !important;
+  color: #ef4444 !important;
+}
+.tat-clear:hover {
+  background: rgba(220,38,38,0.2) !important;
+  color: #fff !important;
+}
+
+/* ── Cascading filter disabled ── */
+.flt-disabled select {
+  opacity: 0.4; cursor: not-allowed;
+}
+
+/* ── KPI sub label ── */
+.kpi-sub-lbl {
+  font-size: 9px; color: var(--muted); margin-top: 2px; letter-spacing: .02em;
+}
+
+/* ── Horizontal bar percentage ── */
+.hbar-pct { font-size: 9px; color: var(--muted); }
+
+/* ── TAT table row highlights ── */
+.row-both-tat { background: rgba(220,38,38,0.05) !important; }
+.row-resp-tat { background: rgba(239,68,68,0.03) !important; }
+.row-res-tat  { background: rgba(217,119,6,0.03) !important; }
+
+.pill-tat {
+  animation: tatPulse 2s ease-in-out infinite !important;
+}
+@keyframes tatPulse {
+  0%,100% { box-shadow: 0 0 0 0 rgba(239,68,68,0.3); }
+  50%      { box-shadow: 0 0 0 4px rgba(239,68,68,0); }
+}
