@@ -197,14 +197,16 @@ html, body {
   text-transform: uppercase; letter-spacing: .08em;
 }
 .flt-item select {
-  background: rgba(255,248,240,0.04); border: 1px solid var(--border);
+  background: #1c1410; border: 1px solid var(--border);
   color: var(--white); border-radius: 9px; padding: 5px 10px;
   font-size: 11px; font-family: 'Sora', sans-serif; outline: none;
   cursor: pointer; min-width: 128px;
   transition: border-color .2s, background .2s, box-shadow .2s;
   -webkit-appearance: none; appearance: none;
+  color-scheme: dark;
 }
-.flt-item select:hover  { border-color: var(--brown-lt); background: rgba(196,154,108,0.06); }
+.flt-item select:hover  { border-color: var(--brown-lt); background: #261d10; }
+.flt-item select option { background: #1c1410 !important; color: var(--white); }
 .flt-item select:focus  { border-color: var(--blue-lt); box-shadow: 0 0 0 2px rgba(59,130,246,0.2); }
 
 .clear-btn {
