@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
 import * as XLSX from 'xlsx';
 import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
@@ -9,7 +9,7 @@ import './App.css';
 /* ── Palette ── */
 const BLUE='#2563eb',BLUE_LT='#3b82f6',BLUE_SK='#60a5fa';
 const BROWN='#8b5e3c',BROWN_L='#c49a6c',BROWN_D='#4a2e14';
-const WHITE='#f5f0ea',OFFWHT='#c9bfb2';
+const WHITE='#1c1007',OFFWHT='#3d2a15';
 const RED_TAT='#dc2626',RED_LT='#ef4444',AMBER='#d97706';
 const PAL=[BLUE_LT,BROWN_L,BLUE_SK,BROWN,'#1d4ed8',AMBER,'#93c5fd','#92400e',BLUE,'#fbbf24'];
 const TAT_PAL=[RED_LT,AMBER,'#f97316',BROWN_L,RED_TAT,'#fbbf24',BROWN,BLUE_LT,'#dc2626',BLUE_SK];
@@ -161,7 +161,7 @@ function RadialProgress({pct,color,label,size=88}){
           strokeDasharray={`${dash} ${circ}`} strokeLinecap="round"
           style={{transformOrigin:'center',transform:'rotate(-90deg)',transition:'stroke-dasharray 0.5s ease'}}/>
         <text x={size/2} y={size/2+1} textAnchor="middle" dominantBaseline="middle"
-          fill={WHITE} fontSize="13" fontWeight="800" fontFamily="JetBrains Mono,monospace">{drawn}%</text>
+          fill="#1c1007" fontSize="13" fontWeight="800" fontFamily="JetBrains Mono,monospace">{drawn}%</text>
       </svg>
       <div>
         <div style={{fontSize:12,color:'var(--text)',fontWeight:600}}>{label}</div>
@@ -187,7 +187,7 @@ export default function App(){
   const [loading,setLoading]=useState(true);
   const [progress,setProgress]=useState(0);
   const [error,setError]=useState(null);
-  const [dark,setDark]=useState(true);
+  
   const tatRef=useRef(null);
 
   /* Main filters */
@@ -348,12 +348,12 @@ export default function App(){
   const clearAll=()=>{setFStatus('');setFOwner('');setFArea('');setFProject('');setFType('');setFOrigin('');setFTL('');setFApply('');};
   const clearTat=()=>{setTatArea('');setTatOwner('');setTatProject('');setTatStatus('');};
 
-  const scrollToTat=()=>tatRef.current?.scrollIntoView({behavior:'smooth',block:'start'});
+  const scrollToTat=()=>tatRef.current?.scrollIntoView({behavior:"smooth",block:"start"});
 
   const A=(begin=200,dur=1000)=>({animationBegin:begin,animationDuration:dur,isAnimationActive:true});
 
   if(loading)return(
-    <div className={`loading-screen ${dark?'':'light'}`}>
+    <div className="loading-screen">
       <div className="loader-ring"><div className="loader-inner">SW</div></div>
       <div className="loader-title">SmartWorld CRM</div>
       <div className="loader-sub">Loading {progress<85?'Excel dataset':'visuals'}…</div>
@@ -364,11 +364,11 @@ export default function App(){
 
   if(error)return(<div className="loading-screen"><div className="loader-title" style={{color:BROWN_L}}>⚠ Error</div><div className="loader-sub">{error}</div></div>);
 
-  /* Axis tick color for charts depending on theme */
+  
   const tick={fill:'var(--muted)',fontSize:10};
 
   return(
-    <div className={`app ${dark?'':'light'}`}>
+    <div className="app">
       <div className="bg-layer">
         <div className="bg-noise"/>
         <div className="orb orb1"/><div className="orb orb2"/><div className="orb orb3"/>
@@ -390,9 +390,6 @@ export default function App(){
           <div className="hdr-stat"><span className="hdr-val" style={{color:RED_LT}}>{fmt(beyondData.length)}</span><span>Beyond TAT</span></div>
           <div className="hdr-actions">
             <button className="tat-jump-btn" onClick={scrollToTat}>⚠ Beyond TAT ↓</button>
-            <button className="theme-btn" onClick={()=>setDark(d=>!d)}>
-              {dark?'☀ Light':'🌙 Dark'}
-            </button>
           </div>
           <div className="live-badge"><div className="live-dot"/>Live</div>
         </div>
@@ -461,7 +458,7 @@ export default function App(){
             <SH title="Case Origin"/>
             <ChartScrollX minWidth={400} height={230}>
               <BarChart data={originData} layout="vertical" margin={{left:8,right:30}}>
-                <CartesianGrid strokeDasharray="3 3" stroke="rgba(180,140,100,0.07)"/>
+                <CartesianGrid strokeDasharray="3 3" stroke="rgba(139,94,60,0.12)"/>
                 <XAxis type="number" tick={tick} tickFormatter={fmt}/>
                 <YAxis dataKey="name" type="category" width={115} tick={{...tick,fontSize:9}}/>
                 <Tooltip content={<TT/>}/>
@@ -483,7 +480,7 @@ export default function App(){
                     <stop offset="95%" stopColor={BLUE} stopOpacity={0.03}/>
                   </linearGradient>
                 </defs>
-                <CartesianGrid strokeDasharray="3 3" stroke="rgba(180,140,100,0.07)"/>
+                <CartesianGrid strokeDasharray="3 3" stroke="rgba(139,94,60,0.12)"/>
                 <XAxis dataKey="name" tick={tick}/>
                 <YAxis tick={tick} tickFormatter={fmt}/>
                 <Tooltip content={<TT/>}/>
@@ -562,7 +559,7 @@ export default function App(){
             <SH title="Case Age"/>
             <ChartScrollX minWidth={280} height={190}>
               <BarChart data={ageDist}>
-                <CartesianGrid strokeDasharray="3 3" stroke="rgba(180,140,100,0.07)"/>
+                <CartesianGrid strokeDasharray="3 3" stroke="rgba(139,94,60,0.12)"/>
                 <XAxis dataKey="name" tick={tick}/><YAxis tick={tick} tickFormatter={fmt}/>
                 <Tooltip content={<TT/>}/>
                 <Bar dataKey="value" radius={[5,5,0,0]} {...A(0,900)}>
@@ -576,7 +573,7 @@ export default function App(){
             <SH title="Reassignments"/>
             <ChartScrollX minWidth={280} height={190}>
               <BarChart data={reassignData}>
-                <CartesianGrid strokeDasharray="3 3" stroke="rgba(180,140,100,0.07)"/>
+                <CartesianGrid strokeDasharray="3 3" stroke="rgba(139,94,60,0.12)"/>
                 <XAxis dataKey="name" tick={tick}/><YAxis tick={tick} tickFormatter={fmt}/>
                 <Tooltip content={<TT/>}/>
                 <Bar dataKey="value" radius={[5,5,0,0]} {...A(0,900)}>
@@ -641,7 +638,7 @@ export default function App(){
                     <stop offset="95%" stopColor={RED_TAT} stopOpacity={0.03}/>
                   </linearGradient>
                 </defs>
-                <CartesianGrid strokeDasharray="3 3" stroke="rgba(220,38,38,0.1)"/>
+                <CartesianGrid strokeDasharray="3 3" stroke="rgba(220,38,38,0.12)"/>
                 <XAxis dataKey="name" tick={tick}/><YAxis tick={tick} tickFormatter={fmt}/>
                 <Tooltip content={<TT/>}/>
                 <Area type="monotone" dataKey="value" name="Beyond TAT" stroke={RED_LT} strokeWidth={2.5} fill="url(#tatGrad)" dot={false} {...A(0,1400)}/>
@@ -697,7 +694,7 @@ export default function App(){
             <SH title="Beyond TAT — Age Distribution" accent={RED_LT}/>
             <ChartScrollX minWidth={280} height={200}>
               <BarChart data={tatAgeDist} margin={{top:8}}>
-                <CartesianGrid strokeDasharray="3 3" stroke="rgba(220,38,38,0.1)"/>
+                <CartesianGrid strokeDasharray="3 3" stroke="rgba(220,38,38,0.12)"/>
                 <XAxis dataKey="name" tick={tick}/><YAxis tick={tick} tickFormatter={fmt}/>
                 <Tooltip content={<TT/>}/>
                 <Bar dataKey="value" radius={[5,5,0,0]} {...A(0,900)}>
